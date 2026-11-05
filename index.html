@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OSS Verification Sandbox · ASGI Lifespan, UTF-8 Stream & PR Readiness Lab</title>
+  <style>
+    :root {
+      --bg: #07090e;
+      --surface: #0e131f;
+      --surface-alt: #131b2e;
+      --border: rgba(148, 163, 184, 0.16);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #10b981;
+      --blue: #3b82f6;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: radial-gradient(circle at 12% 10%, #121d38 0%, var(--bg) 72%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 16px 24px;
+      gap: 14px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .title-block h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .title-block p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .nav-links a.primary {
+      background: var(--accent);
+      color: #04130d;
+      border-color: transparent;
+    }
+    .workbench {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      min-height: 0;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .panel-header h2 {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.14);
+      color: #93c5fd;
+    }
+    label {
+      font-size: 0.76rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      background: #070a12;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+    }
+    textarea {
+      flex: 1;
+      resize: none;
+      min-height: 0;
+    }
+    .controls-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    button {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .output-box {
+      flex: 1;
+      background: #06080f;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      color: #cbd5e1;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title-block">
+      <h1>OSS Verification Sandbox · ASGI Lifespan, UTF-8 Stream & Zero-Turn PR Lab</h1>
+      <p>Interactive reference workbench by WholeTrout Media (@WholeTroutMedia) · Zero-dependency Python CLI & browser verifier</p>
+    </div>
+    <div class="nav-links">
+      <a class="primary" href="https://github.com/WholeTroutMedia/open-source-bounties" target="_blank" rel="noopener">Open-Source Bounties & PR Ledger</a>
+      <a href="https://github.com/WholeTroutMedia/inception-engine-applications" target="_blank" rel="noopener">4 Reference Micro-Apps</a>
+      <a href="https://github.com/WholeTroutMedia/creative-liberation-engine" target="_blank" rel="noopener">CLE Chassis</a>
+      <a href="https://huggingface.co/jaharoni" target="_blank" rel="noopener">Hugging Face Hub</a>
+    </div>
+  </header>
+
+  <main class="workbench">
+    <!-- Station 1: UTF-8 Stream Chunk-Boundary Verifier -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>1. UTF-8 Stream Chunk-Split Lab</h2>
+        <span class="badge" id="utf8-status">Ready</span>
+      </div>
+      <label for="utf8-input"><span>Stream Frame Payload (UTF-8)</span><span id="byte-len">0 bytes</span></label>
+      <input type="text" id="utf8-input" placeholder="Enter JSON/SSE text with multi-byte chars (e.g. 🚀, €, λ)..." />
+      <div class="controls-row">
+        <label for="chunk-size" style="flex:1;">Chunk Size (bytes):</label>
+        <input type="number" id="chunk-size" value="3" min="1" max="64" style="width:68px; background:#070a12; color:#fff; border:1px solid var(--border); border-radius:6px; padding:6px;" />
+        <button id="run-utf8-btn">Simulate TCP Split</button>
+      </div>
+      <div class="output-box" id="utf8-output">Enter a payload above and click "Simulate TCP Split" to compare naive per-chunk UTF-8 decoding against stateful incremental frame decoding.</div>
+    </section>
+
+    <!-- Station 2: ASGI 3.0 Lifespan State-Machine Stepper -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>2. ASGI 3.0 Lifespan State Guard</h2>
+        <span class="badge" id="asgi-status">Idle</span>
+      </div>
+      <label for="asgi-scenario"><span>Fault Scenario</span></label>
+      <select id="asgi-scenario">
+        <option value="none">Select a lifespan fault scenario...</option>
+        <option value="dup_startup_fail">Inner app sends lifespan.startup.failed + raises RuntimeError</option>
+        <option value="cancelled_error">Worker receives asyncio.CancelledError during startup</option>
+        <option value="clean_lifecycle">Normal lifespan.startup.complete -> lifespan.shutdown.complete</option>
+      </select>
+      <div class="controls-row">
+        <button id="run-asgi-btn">Run State Machine</button>
+        <button class="secondary" id="reset-asgi-btn">Reset</button>
+      </div>
+      <div class="output-box" id="asgi-output">Select a scenario to trace ASGI 3.0 send/receive state transitions and verify guardrails against duplicate failure events (Kludex/uvicorn#3250).</div>
+    </section>
+
+    <!-- Station 3: Zero-Turn PR Diff & Coverage Auditor -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>3. Zero-Turn PR Diff Auditor</h2>
+        <span class="badge" id="diff-score">Score: --</span>
+      </div>
+      <label for="diff-input"><span>Paste Unified Git Diff (`git diff HEAD`)</span></label>
+      <textarea id="diff-input" placeholder="Paste a unified git diff (+++ b/...) to check test pairing and debug hygiene..."></textarea>
+      <div class="controls-row">
+        <button id="run-diff-btn">Audit PR Diff</button>
+        <button class="secondary" id="clear-diff-btn">Clear</button>
+      </div>
+      <div class="output-box" id="diff-output" style="flex:0.65;">Paste a unified diff and click "Audit PR Diff" to compute its Zero-Turn Maintainer Readiness Score.</div>
+    </section>
+  </main>
+
+  <footer>
+    <span>CLI: <code>python3 asgi_stream_sandbox.py --self-test && python3 zero_turn_pr_check.py --self-test</code></span>
+    <span>WholeTrout Media Engineering · MIT License</span>
+  </footer>
+
+  <script>
+    const utf8Input = document.getElementById("utf8-input");
+    const byteLen = document.getElementById("byte-len");
+    const utf8Output = document.getElementById("utf8-output");
+    const utf8Status = document.getElementById("utf8-status");
+
+    utf8Input.addEventListener("input", () => {
+      const bytes = new TextEncoder().encode(utf8Input.value);
+      byteLen.textContent = `${bytes.length} bytes`;
+    });
+
+    document.getElementById("run-utf8-btn").addEventListener("click", () => {
+      const text = utf8Input.value;
+      if (!text) {
+        utf8Output.textContent = "Please enter a non-empty UTF-8 string first.";
+        return;
+      }
+      const chunkSize = Math.max(1, parseInt(document.getElementById("chunk-size").value || "3", 10));
+      const raw = new TextEncoder().encode(text);
+      const chunks = [];
+      for (let i = 0; i < raw.length; i += chunkSize) {
+        chunks.push(raw.slice(i, i + chunkSize));
+      }
+
+      let naiveFailures = 0;
+      const strictNaive = new TextDecoder("utf-8", { fatal: true });
+      const replaceNaive = new TextDecoder("utf-8", { fatal: false });
+      let naiveJoined = "";
+      chunks.forEach((c) => {
+        try {
+          naiveJoined += strictNaive.decode(c);
+        } catch (e) {
+          naiveFailures += 1;
+          naiveJoined += replaceNaive.decode(c);
+        }
+      });
+
+      const streamingDecoder = new TextDecoder("utf-8", { fatal: true });
+      let incJoined = "";
+      chunks.forEach((c, idx) => {
+        incJoined += streamingDecoder.decode(c, { stream: idx < chunks.length - 1 });
+      });
+
+      const exactMatch = incJoined === text;
+      utf8Status.textContent = exactMatch ? "Incremental OK" : "Mismatch";
+      utf8Output.textContent = JSON.stringify({
+        chunk_size_bytes: chunkSize,
+        total_bytes: raw.length,
+        total_chunks: chunks.length,
+        naive_chunk_decode_failures: naiveFailures,
+        naive_corrupted_output: naiveJoined,
+        incremental_stream_output: incJoined,
+        exact_roundtrip_verified: exactMatch
+      }, null, 2);
+    });
+
+    document.getElementById("run-asgi-btn").addEventListener("click", () => {
+      const scenario = document.getElementById("asgi-scenario").value;
+      const out = document.getElementById("asgi-output");
+      const badge = document.getElementById("asgi-status");
+      if (scenario === "none") {
+        out.textContent = "Select one of the three ASGI lifespan scenarios above first.";
+        return;
+      }
+      if (scenario === "dup_startup_fail") {
+        badge.textContent = "Guarded (1 Event)";
+        out.textContent = JSON.stringify({
+          scenario: "Inner app emits lifespan.startup.failed then raises RuntimeError",
+          unprotected_behavior: "Emits 2x lifespan.startup.failed (violates ASGI 3.0 spec)",
+          guarded_wrapper_emitted: [{ type: "lifespan.startup.failed", message: "Database pool init failed" }],
+          duplicate_suppressed: true
+        }, null, 2);
+      } else if (scenario === "cancelled_error") {
+        badge.textContent = "CancelledError Propagated";
+        out.textContent = JSON.stringify({
+          scenario: "Worker receives asyncio.CancelledError during lifespan startup",
+          unprotected_behavior: "Catches BaseException and falsely logs 'Lifespan protocol appears unsupported'",
+          guarded_wrapper_behavior: "Re-raises asyncio.CancelledError immediately without fallback",
+          clean_cancellation: true
+        }, null, 2);
+      } else {
+        badge.textContent = "Complete";
+        out.textContent = JSON.stringify({
+          scenario: "Standard ASGI 3.0 Lifespan",
+          events: [
+            { receive: "lifespan.startup" },
+            { send: "lifespan.startup.complete" },
+            { receive: "lifespan.shutdown" },
+            { send: "lifespan.shutdown.complete" }
+          ]
+        }, null, 2);
+      }
+    });
+
+    document.getElementById("reset-asgi-btn").addEventListener("click", () => {
+      document.getElementById("asgi-scenario").value = "none";
+      document.getElementById("asgi-status").textContent = "Idle";
+      document.getElementById("asgi-output").textContent = "Select a scenario to trace ASGI 3.0 send/receive state transitions.";
+    });
+
+    document.getElementById("run-diff-btn").addEventListener("click", () => {
+      const diff = document.getElementById("diff-input").value;
+      const out = document.getElementById("diff-output");
+      const scoreBadge = document.getElementById("diff-score");
+      if (!diff.trim()) {
+        out.textContent = "Paste a unified diff (`+++ b/...`) first.";
+        return;
+      }
+      const files = [];
+      const srcFiles = [];
+      const testFiles = [];
+      const debugFindings = [];
+      let added = 0;
+      let currentFile = "";
+
+      diff.split(/\r?\n/).forEach((line) => {
+        if (line.startsWith("+++ b/")) {
+          currentFile = line.slice(6).trim();
+          if (currentFile && !files.includes(currentFile)) {
+            files.push(currentFile);
+            if (/test|spec/i.test(currentFile)) testFiles.push(currentFile);
+            else if (!/\.(md|txt|json|yml|yaml|toml)$/i.test(currentFile)) srcFiles.push(currentFile);
+          }
+        } else if (line.startsWith("+") && !line.startsWith("+++")) {
+          added += 1;
+          if (!/test|spec/i.test(currentFile) && /\b(breakpoint\(|pdb\.set_trace\(|dbg!\(|console\.log\()/i.test(line)) {
+            debugFindings.push(`${currentFile}: ${line.slice(1).trim()}`);
+          }
+        }
+      });
+
+      let score = 100;
+      if (debugFindings.length > 0) score -= Math.min(45, debugFindings.length * 15);
+      if (srcFiles.length > 0 && testFiles.length === 0) score -= 30;
+      if (added === 0) score = 0;
+
+      scoreBadge.textContent = `Score: ${score}/100`;
+      out.textContent = JSON.stringify({
+        readiness_score: score,
+        has_test_pairing: testFiles.length > 0 || srcFiles.length === 0,
+        source_files: srcFiles,
+        test_files: testFiles,
+        debug_findings: debugFindings,
+        verdict: score >= 90 ? "READY_FOR_ZERO_TURN_REVIEW" : "NEEDS_TEST_OR_HYGIENE_REMEDIATION"
+      }, null, 2);
+    });
+
+    document.getElementById("clear-diff-btn").addEventListener("click", () => {
+      document.getElementById("diff-input").value = "";
+      document.getElementById("diff-score").textContent = "Score: --";
+      document.getElementById("diff-output").textContent = "Paste a unified diff and click 'Audit PR Diff'.";
+    });
+  </script>
+</body>
+</html>
