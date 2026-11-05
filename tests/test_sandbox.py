@@ -2,10 +2,18 @@ import asyncio
 import unittest
 
 import asgi_stream_sandbox as sandbox
+import utf8_stream_sanitizer as sanitizer_mod
 import zero_turn_pr_check as pr_check
 
 
 class TestOSSVerificationSandbox(unittest.TestCase):
+    def test_wednesday_923_grant_001_utf8_stream_sanitizer(self) -> None:
+        res = sanitizer_mod.run_self_test()
+        self.assertEqual(res["exit_code"], 0)
+        self.assertEqual(res["grant_id"], "WED-923-GRANT-001")
+        self.assertGreaterEqual(res["audit"]["split_multibyte_boundaries_healed"], 2)
+        self.assertEqual(res["audit"]["invalid_or_surrogate_sequences_scrubbed"], 1)
+        self.assertEqual(res["audit"]["jsonrpc_frames_validated"], 1)
     def test_utf8_chunk_split_recovery(self) -> None:
         payload = '{"status":"ok","msg":"λ → 🚀 Café München"}'
         report = sandbox.simulate_utf8_chunk_split(payload, chunk_size=3)
