@@ -21,8 +21,11 @@ This sandbox provides zero-dependency, copy-paste runnable tools for reproducing
      - Flags leftover debug statements (`breakpoint()`, `pdb.set_trace()`, `dbg!(`, `console.log(`) in added source lines,
      - Verifies that modified source files are paired with test updates (`tests/`, `*_test.py`, `*.spec.ts`),
      - Outputs a deterministic `0-100` **Zero-Turn Maintainer Readiness Score**.
-3. **[`index.html`](./index.html) — Interactive Zero-Scroll Browser Workbench**:
-   - Open `index.html` locally (or via GitHub Pages) to test UTF-8 byte-chunking, step through ASGI 3.0 lifespan faults, and score `git diff` patches in real time.
+3. **[`utf8_stream_sanitizer.py`](./utf8_stream_sanitizer.py) — 🌱 Wednesday 9:23 PM EST Global Good Grant `#001`**:
+   - **Universal UTF-8 & JSON-RPC / SSE Stream Frame Sanitizer**: Heals 2/3/4-byte UTF-8 codepoints torn across arbitrary TCP/stdio chunk boundaries and scrubs lone UTF-16 surrogates (`U+D800..U+DFFF`) before protobuf/JSON-RPC parsers hang (`python3 utf8_stream_sanitizer.py --self-test`).
+   - **🌟 [Unlock the `$4.99` Wednesday 9:23 PM Builder Pass (`TIER-0`) ↗](https://buy.stripe.com/7sY14m61I2se7Mu5Aya3u0C)**: Get **3x Priority Selection Weight** on your feature submissions in [`WEDNESDAY_923_COMMUNITY_TRACKER.md`](https://github.com/WholeTroutMedia/open-source-bounties/blob/main/WEDNESDAY_923_COMMUNITY_TRACKER.md) + the **6-Part Pro Feature Suite** (Python/TS/Rust/Go SDKs, Local `100dvh` Studio UI, GitHub Action & Pre-Commit Pack, MCP Server & AI Skill Wrapper, full weekly archive, and 30-day direct triage).
+4. **[`index.html`](./index.html) — Interactive Zero-Scroll Browser Workbench**:
+   - Open `index.html` locally (or via [GitHub Pages](https://wholetroutmedia.github.io/oss-verification-sandbox/)) to test UTF-8 byte-chunking, step through ASGI 3.0 lifespan faults, and score `git diff` patches in real time.
 
 ---
 
