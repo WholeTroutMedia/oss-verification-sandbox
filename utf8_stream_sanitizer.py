@@ -49,7 +49,7 @@ class StreamSanitizerAudit:
             "3. GitHub Action & Pre-Commit UTF-8 / JSON-RPC Transport Gate",
             "4. MCP Server & AI Agent Skill Wrapper (SKILL.md + mcp_stream_guard.py)",
             "5. High-Throughput AsyncIO & ASGI Middleware Drop-In Filter",
-            "6. 30-Day Direct Engineering Triage via $4.99 Wednesday 9:23 Builder Pass",
+            "6. 30-Day Direct Engineering Triage via Open-source community verification & tools
         ]
     )
 
