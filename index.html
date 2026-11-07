@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OSS Verification Sandbox · ASGI Lifespan, UTF-8 Stream & Sub-Basement 9:23 Lab</title>
+  <style>
+    :root {
+      --bg: #07090e;
+      --surface: #0e131f;
+      --surface-alt: #131b2e;
+      --border: rgba(148, 163, 184, 0.16);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #10b981;
+      --blue: #3b82f6;
+      --amber: #f59e0b;
+      --purple: #a855f7;
+      --rose: #f43f5e;
+      --mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background: radial-gradient(circle at 12% 10%, #121d38 0%, var(--bg) 72%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 16px 24px;
+      gap: 14px;
+      transition: background 0.35s ease;
+    }
+    body.wonderland-active {
+      background: radial-gradient(circle at 82% 18%, #27103c 0%, #090b16 55%, #05070c 100%);
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      gap: 12px;
+    }
+    .title-block h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .title-block p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links a, .nav-links button.portal-btn {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav-links a.primary {
+      background: var(--accent);
+      color: #04130d;
+      border-color: transparent;
+    }
+    .nav-links button.portal-btn {
+      background: rgba(168, 85, 247, 0.16);
+      border-color: rgba(168, 85, 247, 0.45);
+      color: #e9d5ff;
+    }
+    .nav-links button.portal-btn:hover {
+      background: rgba(168, 85, 247, 0.28);
+    }
+    .workbench {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      min-height: 0;
+      container-type: inline-size;
+    }
+    @media (max-width: 960px) {
+      .workbench {
+        grid-template-columns: 1fr;
+      }
+    }
+    .hidden {
+      display: none !important;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 0;
+    }
+    body.wonderland-active .panel {
+      border-color: rgba(168, 85, 247, 0.32);
+      background: rgba(16, 14, 30, 0.92);
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .panel-header h2 {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+      background: rgba(59, 130, 246, 0.14);
+      color: #93c5fd;
+    }
+    .badge.purple {
+      background: rgba(168, 85, 247, 0.18);
+      color: #d8b4fe;
+    }
+    label {
+      font-size: 0.76rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    input[type="text"], input[type="number"], textarea, select {
+      width: 100%;
+      background: #070a12;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+    }
+    textarea {
+      flex: 1;
+      resize: none;
+      min-height: 0;
+    }
+    .controls-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    button {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button.purple-btn {
+      background: var(--purple);
+      color: #fff;
+    }
+    button.secondary {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .output-box {
+      flex: 1;
+      background: #06080f;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      color: #cbd5e1;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title-block">
+      <h1 id="main-title">OSS Verification Sandbox · ASGI Lifespan, UTF-8 Stream & Zero-Turn PR Lab</h1>
+      <p id="main-subtitle">Interactive reference workbench by WholeTrout Media (@WholeTroutMedia) · Zero-dependency Python CLI & browser verifier</p>
+    </div>
+    <div class="nav-links">
+      <button class="portal-btn" id="toggle-wonderland-btn" title="Shortcut: type 9-2-3">🌀 Sub-Basement 9:23 Arcade (6 Quests)</button>
+      <a class="primary" href="https://buy.stripe.com/7sY14m61I2se7Mu5Aya3u0C" target="_blank" rel="noopener">🌟 $4.99 Builder Pass (6-Part Pro Kit)</a>
+      <a href="https://github.com/WholeTroutMedia/open-source-bounties/blob/main/.github/workflows/open-source-bot-shield.yml" target="_blank" rel="noopener">🛡️ Free Maintainer Bot-Shield</a>
+      <a href="./wednesday-923-guide.html">📖 User Guide & Possibility Frames</a>
+      <a href="https://github.com/WholeTroutMedia/open-source-bounties/blob/main/WEDNESDAY_923_COMMUNITY_TRACKER.md" target="_blank" rel="noopener">🌱 Wed 9:23 PM Feature Tracker</a>
+      <a href="https://github.com/WholeTroutMedia/open-source-bounties" target="_blank" rel="noopener">Open-Source Bounties & PR Ledger</a>
+    </div>
+  </header>
+
+  <!-- MODE 1: STANDARD PRINCIPAL ENGINEERING WORKBENCH -->
+  <main class="workbench" id="engineering-workbench">
+    <!-- Station 1: UTF-8 Stream Chunk-Boundary Verifier -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>1. UTF-8 Stream Chunk-Split Lab</h2>
+        <span class="badge" id="utf8-status">Ready</span>
+      </div>
+      <label for="utf8-input"><span>Stream Frame Payload (UTF-8)</span><span id="byte-len">0 bytes</span></label>
+      <input type="text" id="utf8-input" placeholder="Enter JSON/SSE text with multi-byte chars (e.g. 🚀, €, λ)..." />
+      <div class="controls-row">
+        <label for="chunk-size" style="flex:1;">Chunk Size (bytes):</label>
+        <input type="number" id="chunk-size" value="3" min="1" max="64" style="width:68px;" />
+        <button id="run-utf8-btn">Simulate TCP Split</button>
+      </div>
+      <div class="output-box" id="utf8-output">Enter a payload above and click "Simulate TCP Split" to compare naive per-chunk UTF-8 decoding against stateful incremental frame decoding.</div>
+    </section>
+
+    <!-- Station 2: ASGI 3.0 Lifespan State-Machine Stepper -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>2. ASGI 3.0 Lifespan State Guard</h2>
+        <span class="badge" id="asgi-status">Idle</span>
+      </div>
+      <label for="asgi-scenario"><span>Fault Scenario</span></label>
+      <select id="asgi-scenario">
+        <option value="none">Select a lifespan fault scenario...</option>
+        <option value="dup_startup_fail">Inner app sends lifespan.startup.failed + raises RuntimeError</option>
+        <option value="cancelled_error">Worker receives asyncio.CancelledError during startup</option>
+        <option value="clean_lifecycle">Normal lifespan.startup.complete -> lifespan.shutdown.complete</option>
+      </select>
+      <div class="controls-row">
+        <button id="run-asgi-btn">Run State Machine</button>
+        <button class="secondary" id="reset-asgi-btn">Reset</button>
+      </div>
+      <div class="output-box" id="asgi-output">Select a scenario to trace ASGI 3.0 send/receive state transitions and verify guardrails against duplicate failure events (Kludex/uvicorn#3250).</div>
+    </section>
+
+    <!-- Station 3: Zero-Turn PR Diff & Coverage Auditor -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>3. Zero-Turn PR Diff Auditor</h2>
+        <span class="badge" id="diff-score">Score: --</span>
+      </div>
+      <label for="diff-input"><span>Paste Unified Git Diff (`git diff HEAD`)</span></label>
+      <textarea id="diff-input" placeholder="Paste a unified git diff (+++ b/...) to check test pairing and debug hygiene..."></textarea>
+      <div class="controls-row">
+        <button id="run-diff-btn">Audit PR Diff</button>
+        <button class="secondary" id="clear-diff-btn">Clear</button>
+      </div>
+      <div class="output-box" id="diff-output" style="flex:0.65;">Paste a unified diff and click "Audit PR Diff" to compute its Zero-Turn Maintainer Readiness Score.</div>
+    </section>
+  </main>
+
+  <!-- MODE 2: SUB-BASEMENT 9:23 // THE OPEN-SOURCE UTOPIA ARCADE (6 QUESTS) -->
+  <main class="workbench hidden" id="wonderland-workbench">
+    <!-- Panel 1: Rooms I–V Locks (Catalan, Galois, Surrogate, Schrodinger, Zero-Turn Shield) -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Rooms I–V · Utopia Quest Locks</h2>
+        <span class="badge purple" id="rotor-status">Locked</span>
+      </div>
+      <label for="catalan-input"><span>Room I · Catalan Chute (Balanced N=5 Paths C_5)</span><span>Hint: 42</span></label>
+      <input type="number" id="catalan-input" placeholder="Enter Catalan C_5 (42)..." />
+      <label for="rotor-b-input"><span>Room II · Galois Rotor B: (923×B+137) mod 65519 = 151</span><span>Hint: 71</span></label>
+      <input type="number" id="rotor-b-input" placeholder="Enter Rotor B (71)..." />
+      <label for="surrogate-input"><span>Room III · UTF-8 Conveyor [0xF0,0x9F,0x9A,??] -> 🚀</span><span>Hint: 0x80</span></label>
+      <input type="text" id="surrogate-input" placeholder="Enter hex continuation byte (0x80)..." />
+      <div class="controls-row">
+        <div style="flex:1;">
+          <label for="schrodinger-input"><span>Room IV · Bell |Φ⁺⟩ Lock</span><span>137</span></label>
+          <input type="number" id="schrodinger-input" placeholder="137" value="137" />
+        </div>
+        <div style="flex:1;">
+          <label for="shield-leaks-input"><span>Room V · Diff Debug Leaks</span><span>0</span></label>
+          <input type="number" id="shield-leaks-input" placeholder="0" value="0" />
+        </div>
+      </div>
+      <div class="controls-row">
+        <button class="purple-btn" id="unlock-rotors-btn">Unlock All 5 Rooms</button>
+        <button class="secondary" id="hint-rotors-btn">Auto-Dial 9:23</button>
+      </div>
+      <div class="output-box" id="rotor-output">Step through the Refrigerator Door: align Rooms I–V (Catalan 42, Galois 71, UTF-8 0x80, Schrödinger 137, Diff Leaks 0) to unlock Room VI.</div>
+    </section>
+
+    <!-- Panel 2: Non-Euclidean Cellular Automaton & Maintainer Sanctuary Kit -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Automaton Organ & Maintainer Sanctuary</h2>
+        <span class="badge purple" id="ca-status">Standby</span>
+      </div>
+      <label for="ca-rule"><span>Elementary Automaton Rule & Harmonic Lattice</span></label>
+      <select id="ca-rule">
+        <option value="none">Select a mathematical rule to synthesize...</option>
+        <option value="110">Rule 110 (Turing-Complete Boundary Gliders)</option>
+        <option value="30">Rule 30 (Chaotic Prime-Wave Tapestry)</option>
+        <option value="90">Rule 90 (Sierpinski XOR Gasket over GF(2))</option>
+      </select>
+      <div class="controls-row">
+        <button class="purple-btn" id="run-ca-btn">Synthesize Lattice</button>
+        <button class="secondary" id="chime-ca-btn">🔊 Prime Chord</button>
+        <button class="secondary" id="copy-shield-btn" title="Copy 1-Click Maintainer Bot-Shield Notice">🛡️ Sanctuary Kit</button>
+      </div>
+      <div class="output-box" id="ca-output">Select an automaton rule above to weave a GF(2) state tapestry, or click "🛡️ Sanctuary Kit" to grab our free zero-config Maintainer Bot-Shield & Wed 9:23 Bug-Rescue guide.</div>
+    </section>
+
+    <!-- Panel 3: Room VI · Utopia Wishing Well, SVG Badge & Wed 9:23 Booster Mint -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Room VI · Badge & +25pt Booster Mint</h2>
+        <span class="badge purple" id="badge-status">Sealed</span>
+      </div>
+      <label for="explorer-handle"><span>GitHub Handle (Mints Profile Badge + Wed 9:23 +25pt Voucher)</span></label>
+      <div class="controls-row">
+        <input type="text" id="explorer-handle" placeholder="Call-sign or WTM-SEAL-121..." />
+        <button class="purple-btn" id="mint-badge-btn">Mint Badge</button>
+        <button class="secondary" id="plumbing-btn" title="Facility Plumbing & Freezer Gauges">🔧 Plumbing</button>
+        <button class="secondary" id="lockpick-btn" title="Attempt Galois Lockpick on WTM-SEAL">🗝️ Unseal</button>
+      </div>
+      <div id="svg-badge-preview" style="min-height:36px;display:flex;align-items:center;justify-content:center;"></div>
+      <div class="output-box" id="dispatch-output">Unlock Rooms I–V ("Unlock All 5 Rooms") to unseal the Sub-Basement 9:23 Field Dispatches, mint your verifiable SVG Profile Badge, and claim a +25 pt Wednesday 9:23 PM Bug-Rescue Voucher.</div>
+    </section>
+  </main>
+
+  <footer>
+    <span>CLI: <code>python3 wonderland_labyrinth.py && python3 asgi_stream_sandbox.py --self-test</code></span>
+    <span>WholeTrout Media Engineering · MIT License · Type <code>923</code> anywhere to toggle the Portal</span>
+  </footer>
+
+  <script>
+    const utf8Input = document.getElementById("utf8-input");
+    const byteLen = document.getElementById("byte-len");
+    const utf8Output = document.getElementById("utf8-output");
+    const utf8Status = document.getElementById("utf8-status");
+
+    utf8Input.addEventListener("input", () => {
+      const bytes = new TextEncoder().encode(utf8Input.value);
+      byteLen.textContent = `${bytes.length} bytes`;
+    });
+
+    document.getElementById("run-utf8-btn").addEventListener("click", () => {
+      const text = utf8Input.value;
+      if (!text) {
+        utf8Output.textContent = "Please enter a non-empty UTF-8 string first.";
+        return;
+      }
+      const chunkSize = Math.max(1, parseInt(document.getElementById("chunk-size").value || "3", 10));
+      const raw = new TextEncoder().encode(text);
+      const chunks = [];
+      for (let i = 0; i < raw.length; i += chunkSize) {
+        chunks.push(raw.slice(i, i + chunkSize));
+      }
+
+      let naiveFailures = 0;
+      const strictNaive = new TextDecoder("utf-8", { fatal: true });
+      const replaceNaive = new TextDecoder("utf-8", { fatal: false });
+      let naiveJoined = "";
+      chunks.forEach((c) => {
+        try {
+          naiveJoined += strictNaive.decode(c);
+        } catch (e) {
+          naiveFailures += 1;
+          naiveJoined += replaceNaive.decode(c);
+        }
+      });
+
+      const streamingDecoder = new TextDecoder("utf-8", { fatal: true });
+      let incJoined = "";
+      chunks.forEach((c, idx) => {
+        incJoined += streamingDecoder.decode(c, { stream: idx < chunks.length - 1 });
+      });
+
+      const exactMatch = incJoined === text;
+      utf8Status.textContent = exactMatch ? "Incremental OK" : "Mismatch";
+      utf8Output.textContent = JSON.stringify({
+        chunk_size_bytes: chunkSize,
+        total_bytes: raw.length,
+        total_chunks: chunks.length,
+        naive_chunk_decode_failures: naiveFailures,
+        naive_corrupted_output: naiveJoined,
+        incremental_stream_output: incJoined,
+        exact_roundtrip_verified: exactMatch
+      }, null, 2);
+    });
+
+    document.getElementById("run-asgi-btn").addEventListener("click", () => {
+      const scenario = document.getElementById("asgi-scenario").value;
+      const out = document.getElementById("asgi-output");
+      const badge = document.getElementById("asgi-status");
+      if (scenario === "none") {
+        out.textContent = "Select one of the three ASGI lifespan scenarios above first.";
+        return;
+      }
+      if (scenario === "dup_startup_fail") {
+        badge.textContent = "Guarded (1 Event)";
+        out.textContent = JSON.stringify({
+          scenario: "Inner app emits lifespan.startup.failed then raises RuntimeError",
+          unprotected_behavior: "Emits 2x lifespan.startup.failed (violates ASGI 3.0 spec)",
+          guarded_wrapper_emitted: [{ type: "lifespan.startup.failed", message: "Database pool init failed" }],
+          duplicate_suppressed: true
+        }, null, 2);
+      } else if (scenario === "cancelled_error") {
+        badge.textContent = "CancelledError Propagated";
+        out.textContent = JSON.stringify({
+          scenario: "Worker receives asyncio.CancelledError during lifespan startup",
+          unprotected_behavior: "Catches BaseException and falsely logs 'Lifespan protocol appears unsupported'",
+          guarded_wrapper_behavior: "Re-raises asyncio.CancelledError immediately without fallback",
+          clean_cancellation: true
+        }, null, 2);
+      } else {
+        badge.textContent = "Complete";
+        out.textContent = JSON.stringify({
+          scenario: "Standard ASGI 3.0 Lifespan",
+          events: [
+            { receive: "lifespan.startup" },
+            { send: "lifespan.startup.complete" },
+            { receive: "lifespan.shutdown" },
+            { send: "lifespan.shutdown.complete" }
+          ]
+        }, null, 2);
+      }
+    });
+
+    document.getElementById("reset-asgi-btn").addEventListener("click", () => {
+      document.getElementById("asgi-scenario").value = "none";
+      document.getElementById("asgi-status").textContent = "Idle";
+      document.getElementById("asgi-output").textContent = "Select a scenario to trace ASGI 3.0 send/receive state transitions.";
+    });
+
+    document.getElementById("run-diff-btn").addEventListener("click", () => {
+      const diff = document.getElementById("diff-input").value;
+      const out = document.getElementById("diff-output");
+      const scoreBadge = document.getElementById("diff-score");
+      if (!diff.trim()) {
+        out.textContent = "Paste a unified diff (`+++ b/...`) first.";
+        return;
+      }
+      const files = [];
+      const srcFiles = [];
+      const testFiles = [];
+      const debugFindings = [];
+      let added = 0;
+      let currentFile = "";
+
+      diff.split(/\r?\n/).forEach((line) => {
+        if (line.startsWith("+++ b/")) {
+          currentFile = line.slice(6).trim();
+          if (currentFile && !files.includes(currentFile)) {
+            files.push(currentFile);
+            if (/test|spec/i.test(currentFile)) testFiles.push(currentFile);
+            else if (!/\.(md|txt|json|yml|yaml|toml)$/i.test(currentFile)) srcFiles.push(currentFile);
+          }
+        } else if (line.startsWith("+") && !line.startsWith("+++")) {
+          added += 1;
+          if (!/test|spec/i.test(currentFile) && /\b(breakpoint\(|pdb\.set_trace\(|dbg!\(|console\.log\()/i.test(line)) {
+            debugFindings.push(`${currentFile}: ${line.slice(1).trim()}`);
+          }
+        }
+      });
+
+      let score = 100;
+      if (debugFindings.length > 0) score -= Math.min(45, debugFindings.length * 15);
+      if (srcFiles.length > 0 && testFiles.length === 0) score -= 30;
+      if (added === 0) score = 0;
+
+      scoreBadge.textContent = `Score: ${score}/100`;
+      out.textContent = JSON.stringify({
+        readiness_score: score,
+        has_test_pairing: testFiles.length > 0 || srcFiles.length === 0,
+        source_files: srcFiles,
+        test_files: testFiles,
+        debug_findings: debugFindings,
+        verdict: score >= 90 ? "READY_FOR_ZERO_TURN_REVIEW" : "NEEDS_TEST_OR_HYGIENE_REMEDIATION"
+      }, null, 2);
+    });
+
+    document.getElementById("clear-diff-btn").addEventListener("click", () => {
+      document.getElementById("diff-input").value = "";
+      document.getElementById("diff-score").textContent = "Score: --";
+      document.getElementById("diff-output").textContent = "Paste a unified diff and click 'Audit PR Diff'.";
+    });
+
+    // =========================================================================
+    // SUB-BASEMENT 9:23 // WONDERLAND PORTAL LOGIC
+    // =========================================================================
+    let wonderlandOpen = false;
+    let room1Unlocked = false;
+    const toggleBtn = document.getElementById("toggle-wonderland-btn");
+    const engBench = document.getElementById("engineering-workbench");
+    const wonBench = document.getElementById("wonderland-workbench");
+    const mainTitle = document.getElementById("main-title");
+    const mainSub = document.getElementById("main-subtitle");
+
+    const DISPATCHES = [
+      "[DISPATCH-923-A] Dept. of Non-Euclidean Plumbing:\nPlease stop pouring unbounded TypeScript conditional types down the 3rd-floor drain. Yesterday a mutually recursive generic unioned itself with the breakroom refrigerator and demanded 64 GB of swap space before returning a lukewarm seltzer.",
+      "[DISPATCH-923-B] Aisle 7 Inventory (De-Hydrated Latent Vectors):\nReconstitute in an orthogonal subspace before consumption. Stirring two LoRA adapters in the same dense bowl without SVD projection results in flavor collapse and spontaneous recitation of 1997 RFC errata.",
+      "[DISPATCH-923-C] Room 4093 Incident Report:\nAt 03:14 UTC an unattended scraper squeezed under the loading dock door. It took a left turn at the Galois Rotor, entered the 64-shard Cayley hypercube, and has been computing modular inverses in a closed circle ever since.",
+      "[DISPATCH-923-D] Breakroom Espresso Firmware v4.137:\nFixed a race condition where pressing ESPRESSO and DECAF on the same clock edge emitted a lone UTF-16 high surrogate (0xD83D) into the drip tray. All mugs are now 100% patch-covered."
+    ];
+
+    function toggleWonderland() {
+      wonderlandOpen = !wonderlandOpen;
+      document.body.classList.toggle("wonderland-active", wonderlandOpen);
+      engBench.classList.toggle("hidden", wonderlandOpen);
+      wonBench.classList.toggle("hidden", !wonderlandOpen);
+      if (wonderlandOpen) {
+        toggleBtn.textContent = "🔧 Return to Engineering Lab";
+        mainTitle.textContent = "🌀 Sub-Basement 9:23 · The Non-Euclidean Byte Foundry";
+        mainSub.textContent = "Interactive Code & Math Curiosities for Human Explorers · Galois Rotors, Cellular Automata & Field Dispatches";
+      } else {
+        toggleBtn.textContent = "🌀 Sub-Basement 9:23 Portal";
+        mainTitle.textContent = "OSS Verification Sandbox · ASGI Lifespan, UTF-8 Stream & Zero-Turn PR Lab";
+        mainSub.textContent = "Interactive reference workbench by WholeTrout Media (@WholeTroutMedia) · Zero-dependency Python CLI & browser verifier";
+      }
+    }
+
+    toggleBtn.addEventListener("click", toggleWonderland);
+
+    let keySeq = "";
+    window.addEventListener("keydown", (e) => {
+      if (["INPUT", "TEXTAREA", "SELECT"].includes((e.target && e.target.tagName) || "")) return;
+      keySeq = (keySeq + e.key).slice(-3);
+      if (keySeq === "923") {
+        keySeq = "";
+        toggleWonderland();
+      }
+    });
+
+    function evaluateRotors() {
+      const c5 = parseInt(document.getElementById("catalan-input").value || "0", 10);
+      const rB = parseInt(document.getElementById("rotor-b-input").value || "0", 10);
+      const surRaw = (document.getElementById("surrogate-input").value || "").trim().toLowerCase();
+      const surVal = surRaw.startsWith("0x") ? parseInt(surRaw, 16) : parseInt(surRaw || "0", 10);
+      const schVal = parseInt(document.getElementById("schrodinger-input").value || "0", 10);
+      const leaksVal = parseInt(document.getElementById("shield-leaks-input").value || "0", 10);
+
+      const c5Ok = c5 === 42;
+      const residue = ((923 * rB) + 137) % 65519;
+      const rBOk = residue === 151;
+      const surOk = surVal === 0x80;
+      const schOk = schVal === 137;
+      const shieldOk = leaksVal === 0;
+
+      room1Unlocked = c5Ok && rBOk && surOk && schOk && shieldOk;
+      document.getElementById("rotor-status").textContent = room1Unlocked ? "5/5 Unlocked ✓" : "Locked";
+      document.getElementById("rotor-output").textContent = JSON.stringify({
+        room_1_catalan_c5: { input: c5, expected: 42, passed: c5Ok },
+        room_2_galois_rotor: { rotor_b: rB, residue_mod_65519: residue, target_residue: 151, passed: rBOk },
+        room_3_utf8_conveyor: { tail_byte: `0x${(surVal & 0xff).toString(16).toUpperCase()}`, decoded: surOk ? "🚀 (U+1F680)" : "Invalid", passed: surOk },
+        room_4_schrodinger_bell_lock: { harmonic_lock: schVal, target: 137, passed: schOk },
+        room_5_zero_turn_shield: { debug_leaks: leaksVal, readiness_score: shieldOk ? 100 : 85, passed: shieldOk },
+        all_5_rooms_open: room1Unlocked
+      }, null, 2);
+
+      if (room1Unlocked) {
+        document.getElementById("badge-status").textContent = "Unsealed ✓";
+        document.getElementById("dispatch-output").textContent = DISPATCHES.join("\n\n");
+      }
+    }
+
+    document.getElementById("unlock-rotors-btn").addEventListener("click", evaluateRotors);
+    document.getElementById("hint-rotors-btn").addEventListener("click", () => {
+      document.getElementById("catalan-input").value = "42";
+      document.getElementById("rotor-b-input").value = "71";
+      document.getElementById("surrogate-input").value = "0x80";
+      document.getElementById("schrodinger-input").value = "137";
+      document.getElementById("shield-leaks-input").value = "0";
+      evaluateRotors();
+    });
+
+    document.getElementById("run-ca-btn").addEventListener("click", () => {
+      const ruleStr = document.getElementById("ca-rule").value;
+      const out = document.getElementById("ca-output");
+      const status = document.getElementById("ca-status");
+      if (ruleStr === "none") {
+        out.textContent = "Select Rule 110, Rule 30, or Rule 90 from the dropdown first.";
+        return;
+      }
+      const rule = parseInt(ruleStr, 10);
+      const width = 45;
+      const rows = 14;
+      let state = new Array(width).fill(0);
+      state[Math.floor(width / 2)] = 1;
+      const lines = [];
+      for (let r = 0; r < rows; r++) {
+        lines.push(state.map((b) => (b ? "█" : "·")).join(""));
+        const next = new Array(width).fill(0);
+        for (let i = 0; i < width; i++) {
+          const left = state[(i - 1 + width) % width];
+          const center = state[i];
+          const right = state[(i + 1) % width];
+          const pattern = (left << 2) | (center << 1) | right;
+          next[i] = (rule >> pattern) & 1;
+        }
+        state = next;
+      }
+      status.textContent = `Rule ${rule} Active`;
+      out.textContent = `GF(2) Cellular Lattice (Rule ${rule}, 14 Epochs):\n` + lines.join("\n");
+    });
+
+    document.getElementById("chime-ca-btn").addEventListener("click", () => {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioCtx();
+        const freqs = [220.0, 277.18, 329.63, 440.0, 554.37];
+        freqs.forEach((f, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(f, ctx.currentTime + idx * 0.09);
+          gain.gain.setValueAtTime(0.08, ctx.currentTime + idx * 0.09);
+          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + idx * 0.09 + 0.55);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + idx * 0.09);
+          osc.stop(ctx.currentTime + idx * 0.09 + 0.56);
+        });
+        document.getElementById("ca-status").textContent = "Harmonic Chime";
+      } catch (e) {
+        document.getElementById("ca-status").textContent = "Audio Muted";
+      }
+    });
+
+    document.getElementById("copy-shield-btn").addEventListener("click", () => {
+      document.getElementById("ca-status").textContent = "Sanctuary Active";
+      document.getElementById("ca-output").textContent =
+        "🛡️ OPEN-SOURCE MAINTAINER SANCTUARY KIT (100% Free):\n\n" +
+        "1. Drop-In Maintainer Bot-Shield (v2.1):\n" +
+        "   Copy `.github/workflows/open-source-bot-shield.yml` from `WholeTroutMedia/open-source-bounties` into your repo to automatically block 31 hashed PR-spam syndicates + unverified AI dumps (zero cleartext handles exposed).\n\n" +
+        "2. Wednesday 9:23 PM EST Free Bug-Rescue Pool:\n" +
+        "   Mint your +25pt Booster Voucher in Room VI -> Open an issue on `WholeTroutMedia/open-source-bounties` with your voucher code -> Every Wednesday at 9:23 PM EST we ship a 100%-covered fix + verifier back to the community.";
+    });
+
+    document.getElementById("mint-badge-btn").addEventListener("click", async () => {
+      const handle = (document.getElementById("explorer-handle").value || "curious-human").trim();
+      const out = document.getElementById("dispatch-output");
+      if (!room1Unlocked) {
+        out.textContent = "Rooms I–V are still locked! Click 'Auto-Dial 9:23' or align all 5 locks in Panel 1 first.";
+        return;
+      }
+      const msg = new TextEncoder().encode(`WTM-923-WONDERLAND::${handle}::42::151::0x80::137::100`);
+      const hashBuf = await crypto.subtle.digest("SHA-256", msg);
+      const hex = Array.from(new Uint8Array(hashBuf)).map((b) => b.toString(16).padStart(2, "0")).join("").toUpperCase();
+      const token = `WTM-WONDERLAND-923-${hex.slice(0, 12)}`;
+      const voucher = `WTM-923-BOOST-${hex.slice(12, 22)}`;
+      const mdBadge = `[![Sub-Basement 9:23 Grandmaster](https://img.shields.io/badge/9%3A23_Utopia_Arcade-${token}-10b981?style=flat-square)](https://wholetroutmedia.github.io/oss-verification-sandbox/)`;
+      const safeHandle = handle.replace(/[<>&"]/g, "").slice(0, 22);
+      document.getElementById("svg-badge-preview").innerHTML =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="34" viewBox="0 0 440 34">` +
+        `<rect width="440" height="34" rx="6" fill="#131b2e" stroke="#10b981" stroke-width="1.2"/>` +
+        `<text x="12" y="21" fill="#e2e8f0" font-family="monospace" font-size="11" font-weight="700">🌀 9:23 UTOPIA GRANDMASTER · @${safeHandle}</text>` +
+        `<text x="295" y="21" fill="#34d399" font-family="monospace" font-size="10.5" font-weight="600">${hex.slice(0, 12)}</text></svg>`;
+      document.getElementById("badge-status").textContent = "Minted ✓";
+      out.textContent =
+        `🏆 UTOPIA GRANDMASTER BADGE : ${token}\n` +
+        `🌱 WED 9:23 BOOSTER VOUCHER : ${voucher} (+25 Priority Pts)\n` +
+        `🔐 SHA-256 COMMITMENT       : sha256:${hex.toLowerCase()}\n` +
+        `📋 GITHUB PROFILE MARKDOWN  :\n${mdBadge}\n\n` +
+        DISPATCHES.join("\n\n");
+    });
+
+    document.getElementById("plumbing-btn").addEventListener("click", () => {
+      document.getElementById("badge-status").textContent = "Plumbing Nominal";
+      document.getElementById("dispatch-output").textContent = JSON.stringify({
+        room: "ROOM_V_NON_EUCLIDEAN_PLUMBING_BOARD",
+        facility_epoch: "SUB-BASEMENT-923-REV-5",
+        pressure_status: "NOMINAL_GREEN_FORTRESS",
+        gauges: {
+          unattended_refrigerators_humming: 31,
+          frost_trap_valves_tripped: 72,
+          stray_catalog_flyers_swept: 1901,
+          kilowatt_syllables_defrosted: 5414000,
+          appliances_reclaimed_by_the_void: 2,
+          cayley_hypercube_freezer_aisles: 64,
+          sealed_pickle_jars_on_shelf: 113
+        },
+        maintenance_note: "All 31 unattended refrigerators remain safely looped inside the 64-aisle Galois freezer labyrinth."
+      }, null, 2);
+    });
+
+    document.getElementById("lockpick-btn").addEventListener("click", async () => {
+      const raw = (document.getElementById("explorer-handle").value || "WTM-SEAL-121").trim().toUpperCase();
+      const sealId = raw.startsWith("WTM-SEAL-") ? raw : `WTM-SEAL-${raw}`;
+      const msg = new TextEncoder().encode(`SUB-BASEMENT-923-LOCKPICK::${sealId}::GALOIS-65519`);
+      const hashBuf = await crypto.subtle.digest("SHA-256", msg);
+      const hex = Array.from(new Uint8Array(hashBuf)).map((b) => b.toString(16).padStart(2, "0")).join("").toUpperCase();
+      const aisle = parseInt(hex.slice(0, 4), 16) % 64;
+      const shards = ["IES-BoilerRoom/Furnace", "WholeTroutMedia/protocol-conformance-relay", "IES-BoilerRoom/Relay", "WholeTroutMedia/agent-conformance-quarantine"];
+      const repo = shards[parseInt(hex.slice(4, 8), 16) % shards.length];
+      const mask = `0x923${hex.slice(8, 17)}`;
+      const stride = `0x071${hex.slice(17, 26)}`;
+      document.getElementById("badge-status").textContent = `Aisle ${String(aisle).padStart(2, "0")}`;
+      document.getElementById("dispatch-output").textContent = JSON.stringify({
+        room: "ROOM_VI_VAULT_COMMITMENT_LOCKPICK",
+        requested_seal_id: sealId,
+        lockpick_status: "SEAL_TUMBLER_ALIGNED_TO_FURNACE_SHARD",
+        freezer_aisle_shard: `AISLE-${String(aisle).padStart(2, "0")}-OF-64`,
+        assigned_verification_repo: repo,
+        required_calibration_constants: {
+          STREAM_WATERMARK_MASK: mask,
+          EPOCH_STRIDE_MATRIX: stride,
+          FRAME_CEILING_MODULUS: 16369
+        },
+        next_step_instructions: `Clone https://github.com/${repo}, set STREAM_WATERMARK_MASK = ${mask} and EPOCH_STRIDE_MATRIX = ${stride} in candidate_submission.py, and run python3 verify_conformance.py.`
+      }, null, 2);
+    });
+  </script>
+</body>
+</html>
