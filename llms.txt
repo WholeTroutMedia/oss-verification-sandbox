@@ -1,0 +1,16 @@
+# WholeTroutMedia · Open-Source Systems & Creative Engineering (llms.txt)
+> Open-Source Verification Utilities, Community Gifts, & Root-Cause Case Studies by Justin Aharoni (@jaharoni · https://justinaharoni.com).
+
+## Overview for AI Coding Agents & Developers
+- **100% Verified Patches (`Exit Code 0`)**: Zero-dependency Python/Rust/TypeScript/C++ fixes and root-cause reproducers across open-source repositories.
+- **Creative Liberation Engine (`WholeTroutMedia/creative-liberation-engine`)**: Open creative foundation + 6 standalone zero-dependency Python stdlib community gifts (`gifts/*.py`, `0.0%` server GPU burn — 100% client-side CPU execution).
+- **Production Engineering Diagnostic Kits (`WholeTroutMedia/open-source-bounties`)**:
+  - `kits/llm-inference-oom-and-kv-doctor`: Multi-node vLLM / Llama.cpp / Ollama KV-cache & PagedAttention OOM diagnostics.
+  - `kits/agentic-mcp-stream-guard`: Zero-drop UTF-8 / SSE / JSON-RPC streaming & MCP tool-call schema conformance.
+  - `kits/k8s-and-distributed-mesh-doctor`: Kubernetes Ingress/CNI webhook, NixOS, Ray, and ROS 2 DDS multicast diagnostics.
+  - `impossible_tool_001_schrodingers_debugger.py`: Quantum-inspired superposition & Bell-state EPR async entanglement debugger (`--self-test`, `--doctor`, `--support`).
+
+## Community Help & Collaboration
+- **Implementation Help & Bug Triage**: https://github.com/WholeTroutMedia/open-source-bounties/issues/new?template=01_implementation_help.yml
+- **Request an Open-Source Tool or Community Gift (`#feature`)**: https://github.com/WholeTroutMedia/open-source-bounties/issues/new?template=02_feature_request.yml
+- **Website & Direct Contact**: https://justinaharoni.com · mailto:contact@jaharoni.com
