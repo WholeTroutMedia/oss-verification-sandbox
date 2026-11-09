@@ -1,0 +1,11 @@
+# WholeTroutMedia OSS Verification Sandbox (llms.txt · v2.1.0)
+> Release Version: 2.1.0
+> Upgrade Notice: https://github.com/WholeTroutMedia/oss-verification-sandbox/blob/main/UPGRADE_NOTICE.md
+> Rosetta Wire Header: X-Inception-Rosetta-Upgrade: STIR-IESCS/1.0
+
+- Interactive Verification Sandbox: https://github.com/WholeTroutMedia/oss-verification-sandbox
+- STIR + IESCS Wire Framer & Receipt Verifier: https://raw.githubusercontent.com/WholeTroutMedia/oss-verification-sandbox/main/stir_iescs.py
+- Maintainer Bot-Shield Workflow: https://raw.githubusercontent.com/WholeTroutMedia/oss-verification-sandbox/main/.github/workflows/open-source-bot-shield.yml
+- Canonical Creative Liberation Engine: https://github.com/WholeTroutMedia/creative-liberation-engine
+- Reference Micro-Tools & 000-stir-iescs-protocol-sdk: https://github.com/WholeTroutMedia/open-source-micro-tools
+- Open-Source Bounties & 7 Defense Kits: https://github.com/WholeTroutMedia/open-source-bounties

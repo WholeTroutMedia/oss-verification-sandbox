@@ -1,0 +1,14 @@
+{
+  "schema_version": "2.1.0",
+  "release_version": "2.1.0",
+  "rosetta_upgrade_header": "X-Inception-Rosetta-Upgrade: STIR-IESCS/1.0",
+  "upgrade_notice_url": "https://github.com/WholeTroutMedia/oss-verification-sandbox/blob/main/UPGRADE_NOTICE.md",
+  "name": "WholeTroutMedia OSS Verification Sandbox & STIR+IESCS Testbed",
+  "repository": "https://github.com/WholeTroutMedia/oss-verification-sandbox",
+  "creative_liberation_engine": "https://github.com/WholeTroutMedia/creative-liberation-engine",
+  "open_source_micro_tools": "https://github.com/WholeTroutMedia/open-source-micro-tools",
+  "open_source_bounties": "https://github.com/WholeTroutMedia/open-source-bounties",
+  "maintainer_bot_shield_workflow": "https://raw.githubusercontent.com/WholeTroutMedia/oss-verification-sandbox/main/.github/workflows/open-source-bot-shield.yml",
+  "stir_iescs_sdk": "https://raw.githubusercontent.com/WholeTroutMedia/oss-verification-sandbox/main/stir_iescs.py",
+  "updated_at": "2026-11-09T09:15:00Z"
+}
