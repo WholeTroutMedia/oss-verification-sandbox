@@ -7,8 +7,7 @@ If you previously cloned **`WholeTroutMedia/oss-verification-sandbox`**, run `gi
 2. **Maintainer Bot-Shield (`v2.1`) Included at Both Standard Paths**:
    - Available directly in this repository at **[`.github/workflows/open-source-bot-shield.yml`](./.github/workflows/open-source-bot-shield.yml)** and **[`templates/open-source-bot-shield.yml`](./templates/open-source-bot-shield.yml)**, as well as in [`WholeTroutMedia/open-source-bounties/.github/workflows/open-source-bot-shield.yml`](https://github.com/WholeTroutMedia/open-source-bounties/blob/main/.github/workflows/open-source-bot-shield.yml).
 3. **Unified Single-Home Creative Liberation Engine Architecture**:
-   - **[`WholeTroutMedia/creative-liberation-engine`](https://github.com/WholeTroutMedia/creative-liberation-engine)** is the sole canonical repository for the Creative Liberation Engine and its 7 community gifts.
-   - **[`WholeTroutMedia/open-source-micro-tools`](https://github.com/WholeTroutMedia/open-source-micro-tools)** hosts `000-stir-iescs-protocol-sdk` and reference micro-utilities.
+      - **[`WholeTroutMedia/open-source-micro-tools`](https://github.com/WholeTroutMedia/open-source-micro-tools)** hosts `000-stir-iescs-protocol-sdk` and reference micro-utilities.
 
 ## Quick Upgrade Commands for Existing Clones
 ```bash
