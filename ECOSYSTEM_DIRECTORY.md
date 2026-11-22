@@ -50,5 +50,5 @@ Every kit below is a standalone, zero-dependency tool (`python3 kit_engine.py --
 
 1. **[`WholeTroutMedia/open-source-bounties`](https://github.com/WholeTroutMedia/open-source-bounties)**: Upstream PR ledger (`100%` Codecov patch coverage), Maintainer Bot-Shield (`v2.2`), 7 Defense Kits (`kits/`), and the 6 Global Builder Kits (`global-builder-kits/`).
 2. **[`WholeTroutMedia/open-source-micro-tools`](https://github.com/WholeTroutMedia/open-source-micro-tools)**: 21 standalone micro-tools (`apps/000-stir-iescs-protocol-sdk` through `020`), including PDF Notary, PBR Material Synth, and Smart Stem Ducker.
-3. **[`WholeTroutMedia/creative-liberation-engine`](https://github.com/WholeTroutMedia/creative-liberation-engine)**: The single canonical home of the Creative Liberation Engine (`src/cle/`) and 6 community gifts (`gifts/`).
+3. **[`WholeTroutMedia/open-source-micro-tools`](https://github.com/WholeTroutMedia/open-source-micro-tools)**: Zero-dependency Python stdlib micro-applications and `STIR + IESCS` protocol SDK.
 4. **[`WholeTroutMedia/oss-verification-sandbox`](https://github.com/WholeTroutMedia/oss-verification-sandbox)**: Live stream sanitizers (`utf8_stream_sanitizer.py`, `asgi_stream_sandbox.py`, `zero_turn_pr_check.py`, `stir_iescs.py`) and the Wednesday 9:23 PM Community Grant hub.
