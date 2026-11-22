@@ -1,0 +1,37 @@
+name: README Quickstart Clean-Room Smoke Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  readme-quickstart-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify repository trust files exist
+        run: |
+          test -f LICENSE
+          test -f CONTRIBUTING.md
+          test -f README.md
+
+      - name: Run documented README 5-minute quickstart and unit tests
+        run: |
+          set -e
+          python3 asgi_stream_sandbox.py --self-test
+          python3 stir_iescs.py --self-test
+          python3 zero_turn_pr_check.py --self-test
+          python3 utf8_stream_sanitizer.py --self-test
+          python3 wonderland_labyrinth.py --self-test
+          python3 -m unittest discover -s tests -v

@@ -1,19 +1,43 @@
-# oss-verification-sandbox (`v2.1.0`)
+# oss-verification-sandbox (`v2.2.0`)
 
-
-> **🌍 Global Walk-Into-Your-Folder Directory**: Browse all tools, verified Pull Requests, and ready-to-run friend kits by **Domain**, **Programming Language**, or **Global Builder Need** in **[`ECOSYSTEM_DIRECTORY.md`](./ECOSYSTEM_DIRECTORY.md)**.
-
-**ASGI 3.0 Lifespan State-Machine, Incremental UTF-8 Stream Boundary, `STIR + IESCS` Wire Protocol & Zero-Turn PR Verification Toolkit**  
-*Maintained by [WholeTrout Media Engineering (`@WholeTroutMedia`)](https://github.com/WholeTroutMedia/open-source-bounties)*
-
-> **[`v2.1.0` Release & Upgrade Notice (`UPGRADE_NOTICE.md`)](./UPGRADE_NOTICE.md)**: Existing cloners should run `git pull origin main`.
-> - **Runnable `STIR + IESCS` Agentic Protocol & Receipt Verifier ([`stir_iescs.py`](./stir_iescs.py))**: Included directly in this sandbox (`python3 stir_iescs.py --self-test`).
-> - **Maintainer Bot-Shield (`v2.1`) Included Locally**: Available at **[`.github/workflows/open-source-bot-shield.yml`](./.github/workflows/open-source-bot-shield.yml)** and **[`templates/open-source-bot-shield.yml`](./templates/open-source-bot-shield.yml)** (matching `index.html`).
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
+[![Live Browser Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-0ea5e9?style=for-the-badge)](https://wholetroutmedia.github.io/oss-verification-sandbox/)
 [![Zero Dependencies](https://img.shields.io/badge/Python-3.10%2B%20(Zero%20Deps)-3b82f6?style=for-the-badge&logo=python&logoColor=white)](https://github.com/WholeTroutMedia/oss-verification-sandbox)
-[![100% Test Coverage](https://img.shields.io/badge/Unit%20Tests-100%25%20Passing-10b981?style=for-the-badge)](./tests/test_sandbox.py)
-[![Open-Source Bounties](https://img.shields.io/badge/Portfolio-Open--Source%20Bounties-8b5cf6?style=for-the-badge)](https://github.com/WholeTroutMedia/open-source-bounties)
-[![Medium Essays](https://img.shields.io/badge/Medium%20Essays-%40jaharoni-000000?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@jaharoni)
+[![Unit Tests](https://img.shields.io/badge/Unit%20Tests-Passing-10b981?style=for-the-badge)](./tests/test_sandbox.py)
+
+Zero-dependency Python 3.10+ toolkit and interactive browser workbench for reproducing ASGI 3.0 lifespan faults, multi-byte UTF-8 TCP/SSE chunk splits, `STIR + IESCS` wire framing, and pre-submission PR readiness checks.
+
+Links: [Try Live in Browser (No Install)](https://wholetroutmedia.github.io/oss-verification-sandbox/) · [5-Minute Quick Start](#5-minute-quick-start) · [Contributing](./CONTRIBUTING.md) · [License (MIT)](./LICENSE) · [Directory](./ECOSYSTEM_DIRECTORY.md)
+
+---
+
+## 5-Minute Quick Start
+
+Try the interactive lab right away at **[wholetroutmedia.github.io/oss-verification-sandbox](https://wholetroutmedia.github.io/oss-verification-sandbox/)**, or run locally with Python 3.10+ (zero external dependencies):
+
+```bash
+git clone https://github.com/WholeTroutMedia/oss-verification-sandbox.git
+cd oss-verification-sandbox
+
+python3 -m unittest discover -s tests -v
+python3 asgi_stream_sandbox.py --self-test
+python3 utf8_stream_sanitizer.py --self-test
+```
+
+Expected output:
+
+```text
+Ran 5 tests in 0.001s
+
+OK
+```
+
+### Troubleshooting the First Run
+
+- **`zero_turn_pr_check.py` reports no diff when run without flags**: Without `--self-test`, it reads the active `git diff` in your current working directory. Pass `--self-test` for a built-in fixture run, or `--patch path/to/file.diff` for a standalone patch file.
+- **Interactive terminal loop**: Pass `--self-test` when running `wonderland_labyrinth.py` in non-interactive shells or CI.
+
+*Maintained by [WholeTrout Media Engineering (`@WholeTroutMedia`)](https://github.com/WholeTroutMedia/open-source-bounties)* · [Upgrade Notes (`UPGRADE_NOTICE.md`)](./UPGRADE_NOTICE.md) · [Medium Essays (`@jaharoni`)](https://medium.com/@jaharoni)
 
 ---
 
